@@ -9,6 +9,7 @@ import { EventsComponent } from './events/events.component';
 import { SpecialEventsComponent } from './special-events/special-events.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from './auth.service';
+import { EventsService } from './events.service';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import { AuthService } from './auth.service';
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [AuthService],
+  providers: [AuthService, EventsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
