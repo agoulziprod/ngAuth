@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
-const User= require('../models/user.model')
+const User = require('../models/user.model')
+const jwt= require('jsonwebtoken')
 
 const mongoose = require('mongoose');
 const db="mongodb://agoulzi:agoulzi12@ds151586.mlab.com:51586/eventsdb"
@@ -23,7 +24,9 @@ router.post('/register', (req, res) => {
         if (error) {
             console.log(error)
         } else {
-            res.status(200).send(registredUser)
+            let payload = { subject: registredUser._id }
+            let token= jwt.sign(payload, 'secretKey')
+            res.status(200).send({token})
         }
     })
 })
@@ -36,9 +39,15 @@ router.post('/login', (req, res) => {
             console.log(error)
         } else {
             if (!user)
+            {
                 res.status(401).send('Invalid chi haja');
+            }
             else
-                res.status(200).send(user)
+            {
+                let payload = { subject: user._id }
+                let token= jwt.sign(payload, 'secretKey')
+                res.status(200).send({token})
+            }
         }
     })
 })
