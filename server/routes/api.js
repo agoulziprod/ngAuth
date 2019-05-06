@@ -136,15 +136,19 @@ function verifyToken(req, res, next) {
   if (!req.headers.autorization) {
     return res.status(401).send('unauthorized request')
   }
+
   let token = req.headers.autorization.split(' ')[1];
   if (token === 'null') {
+    console.log('hnaaaaaa');
     return res.status(401).send('unauthorized request')
   }
   let payload = jwt.verify(token, 'secretKey')
+  console.log('lheeeh');
   if (!payload) {
+
     return res.status(401).send('unauthorized request')
   }
-  req.userId=payload.subject
+  req.userId = payload.subject;
   next();
 
 
